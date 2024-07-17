@@ -23,6 +23,6 @@ app.use("/api/food",foodRouter)
 //to run express server
 app.listen(port,()=>
 {
-    console.log(`Server started on http://Localhost${port}`)
+    console.log(`Server started on http://localhost:${port}`)
 })
 //mongodb+srv://greatstack:992002@cluster0.3hbfuy2.mongodb.net/?
