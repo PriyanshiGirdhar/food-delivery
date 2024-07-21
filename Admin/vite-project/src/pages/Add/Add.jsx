@@ -22,8 +22,8 @@ event.preventDefault();
 const formData=new FormData();
 formData.append("name",data.name)
 formData.append("description",data.description)
-formData.append("price",number(data.price))
-formData.append("category",number(data.category))
+formData.append("price",Number(data.price))
+formData.append("category",(data.category))
 formData.append("image",image)
 const response=await axios.post(`${url}/api/food/add`,formData);
 if(response.data.success)
