@@ -5,7 +5,7 @@ import { StoreContext } from "../../Context/StoreContext";
 import axios from 'axios';
 
 const LogInPopUp = ({ setShowLogin }) => {
-const {url,settoken}=useContext(StoreContext)
+const {url,setToken}=useContext(StoreContext)
 
   const [currState, setCurrState] = useState("Login");
 
@@ -37,7 +37,7 @@ const response =await axios.post(newUrl,data);
 
 if(response.data.success)
 {
-settoken(response.data.token);
+setToken(response.data.token);
 localStorage.setItem("token",response.data.token);
 setShowLogin(false);
 }
@@ -47,14 +47,16 @@ else{
 }
   }
  
+
+  console.log("setShowLogin prop:", setShowLogin);
   return (
     <div className="login-popup">
-      <form  onSubmit={onLogin}className="login-popup-container">
+      <form  onSubmit={onLogin} className="login-popup-container">
         <div className="login-popup-title">
           <h2>{currState}</h2>
 
           <img
-            onClick={() => setShowLogin(false)}
+            onClick={()=>setShowLogin(false)}
             src={assets.cross_icon}
             alt=""
           />
