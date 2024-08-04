@@ -1,5 +1,5 @@
 import express from "express"
-import { addToCart,removeFromCart,getCart } from "../controllers/canController"
+import { addToCart,removeFromCart,getCart } from "../controllers/canController.js"
 import authMiddleware from "../middleware/auth.js";
 
 

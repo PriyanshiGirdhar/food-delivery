@@ -1,12 +1,14 @@
 import { createContext, useState } from "react";
 import { food_list } from "../assets/assets";
 import { useEffect } from "react";
+import axios from "axios";
+
 export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const url="http://localhost:4000"
-const [token,settoken]=useState("");
-const[food_list,setFoodList]=useState([])
+  const url = "http://localhost:4000";
+  const [token, settoken] = useState("");
+  const [food_list, setFoodList] = useState([]);
 
   const addToCart = (itemId) => {
     if (!cartItems[itemId]) {
@@ -18,42 +20,31 @@ const[food_list,setFoodList]=useState([])
   const removeFromCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
   };
-  const getTotalCartAmount=()=>{
-    let totalAmount=0;
-    for(const item in cartItems)
-    {
-      if(cartItems[item]>0)
-      {
-  let itemInfo=food_list.find((product)=>product._id===item)
-      totalAmount+=itemInfo.price*cartItems[item];
+  const getTotalCartAmount = () => {
+    let totalAmount = 0;
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) {
+        let itemInfo = food_list.find((product) => product._id === item);
+        totalAmount += itemInfo.price * cartItems[item];
       }
-    
-
-
     }
     return totalAmount;
+  };
 
-  }
-
-  const fetchFoodList=async()=>{
-    const response=await axios.get(url+"/api/food/list");
-    setFoodList(response.data.data)
-
-  }
+  const fetchFoodList = async () => {
+    const response = await axios.get(url + "/api/food/list");
+    setFoodList(response.data.data);
+  };
   useEffect(() => {
-    
-   async function loadData()
-   {
-    await fetchFoodList();
-    if(localStorage.getItem("token")){
-      settoken(localStorage.getItem("token"));
-
+    async function loadData() {
+      await fetchFoodList();
+      if (localStorage.getItem("token")) {
+        settoken(localStorage.getItem("token"));
+      }
     }
-   } 
-   loadData();
-  }, [])
+    loadData();
+  }, []);
 
-  
   const contextValue = {
     food_list,
     cartItems,
@@ -63,7 +54,7 @@ const[food_list,setFoodList]=useState([])
     getTotalCartAmount,
     url,
     token,
-    settoken
+    settoken,
   };
   return (
     <StoreContext.Provider value={contextValue}>
