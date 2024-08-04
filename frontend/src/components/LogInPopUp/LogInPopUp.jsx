@@ -5,7 +5,7 @@ import { StoreContext } from "../../Context/StoreContext";
 import axios from 'axios';
 
 const LogInPopUp = ({ setShowLogin }) => {
-const {url,setToken}=useContext(StoreContext)
+const {url,settoken}=useContext(StoreContext)
 
   const [currState, setCurrState] = useState("Login");
 
@@ -37,7 +37,7 @@ const response =await axios.post(newUrl,data);
 
 if(response.data.success)
 {
-setToken(response.data.token);
+settoken(response.data.token);
 localStorage.setItem("token",response.data.token);
 setShowLogin(false);
 }
